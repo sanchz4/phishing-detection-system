@@ -3,7 +3,7 @@ from __future__ import annotations
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.schemas import AnalyzeRequest, AnalyzeResponse, AppConfigResponse, HealthResponse
+from src.schemas import AnalyzeRequest, AnalyzeResponse, AppConfigResponse, HealthResponse, HistoryResponse, StatsResponse
 from src.service import DetectionService
 
 app = FastAPI(
@@ -36,3 +36,20 @@ def app_config() -> dict:
 @app.post("/api/analyze", response_model=AnalyzeResponse)
 def analyze(payload: AnalyzeRequest) -> dict:
     return {"results": service.analyze(payload)}
+
+
+@app.get("/api/history", response_model=HistoryResponse)
+def history(risk_level: str | None = None) -> dict:
+    items = service.list_history(risk_level)
+    return {"items": items, "total": len(items)}
+
+
+@app.delete("/api/history")
+def clear_history() -> dict:
+    service.clear_history()
+    return {"status": "cleared"}
+
+
+@app.get("/api/stats", response_model=StatsResponse)
+def stats() -> dict:
+    return service.stats()

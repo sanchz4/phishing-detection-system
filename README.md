@@ -1,18 +1,18 @@
 # Phishing Detection System
 
-Modernized phishing-analysis workspace with a typed Python backend and a React dashboard for bank-focused URL triage.
+Modernized phishing-analysis workspace with a typed Python backend and a React dashboard for phishing, quishing, brand-impersonation, and email triage.
 
 ## Tech Stack
 
-- Backend: Python 3.11, FastAPI, Selenium, optional TensorFlow, scikit-learn
-- Frontend: Vite, React, TypeScript, Tailwind CSS, React Router, React Query
+- Backend: Python 3.11, FastAPI, Selenium, scikit-learn, XGBoost, LightGBM, optional SHAP
+- Frontend: Vite, React 18, TypeScript, Tailwind CSS, React Router, React Query, Radix UI, Framer Motion
 - Tooling: ESLint, Prettier, concurrently
 
 ## Project Structure
 
 ```text
-src/                     Python backend, API, CLI, and analysis modules
-frontend/                Vite + React dashboard
+src/                     Python backend, API, CLI, analysis, threat feeds, and history store
+frontend/                React dashboard with landing, scan, history, and about pages
 bank_screenshots/        Reference screenshots used for similarity matching
 data/                    Generated crawl and monitoring artifacts
 requirements.txt         Backend dependencies
@@ -24,7 +24,7 @@ config.json              Non-secret runtime configuration
 
 1. Create and activate a Python virtual environment.
 2. Install backend dependencies with `python -m pip install -r requirements.txt`.
-3. Copy `.env.example` to `.env` and add any API keys you want enabled.
+3. Copy `.env.example` to `.env` and add any API keys you want enabled, including `SAFE_BROWSING_API_KEY` when available.
 4. Install frontend and root tooling with `npm install` and `npm --prefix frontend install`.
 
 ## Available Scripts
@@ -40,13 +40,17 @@ config.json              Non-secret runtime configuration
 
 - `GET /api/health`
 - `GET /api/config`
+- `GET /api/stats`
+- `GET /api/history`
 - `POST /api/analyze`
+- `DELETE /api/history`
 
 Example request:
 
 ```json
 {
-  "urls": ["https://example.com"],
+  "inputs": ["https://example.com"],
+  "input_type": "url",
   "comprehensive": true
 }
 ```
@@ -55,6 +59,8 @@ Example request:
 
 - `src/api.py`: FastAPI application and REST endpoints
 - `src/service.py`: orchestration layer between API/CLI and detector logic
+- `src/cyber_engine.py`: cybersecurity analysis engine with heuristic, ML, HTML, TLS, and threat-feed checks
+- `src/history_store.py`: SQLite-backed scan history
 - `src/cli.py`: streamlined command-line entrypoint
 - `frontend/src/components`: reusable UI components
 - `frontend/src/pages`: route-level views and fallbacks
@@ -65,4 +71,5 @@ Example request:
 ## Notes
 
 - `config.json` no longer stores live secrets. Use environment variables instead.
+- The backend now returns risk score, threat category, confidence level, explanation, and persisted scan history for every scan.
 - If TensorFlow is unavailable, the backend falls back to histogram-based image features so the API can still start.
