@@ -23,24 +23,28 @@ export function ResultTable({ results }: { results: DetectionResult[] }) {
         </thead>
         <tbody className="divide-y divide-slate-100">
           {results.map((result) => (
-            <tr key={`${result.url}-${result.timestamp}`} className="align-top">
-              <td className="px-4 py-4 text-slate-900">{result.url}</td>
+            <tr key={`${result.id}-${result.scanned_at}`} className="align-top">
+              <td className="px-4 py-4 text-slate-900">{result.input_value}</td>
               <td className="px-4 py-4">
                 <span
                   className={
-                    result.is_phishing
+                    result.threat_category === 'dangerous'
                       ? 'rounded-full bg-rose-100 px-3 py-1 text-xs font-semibold text-rose-700'
-                      : result.confidence >= 0.4
+                      : result.threat_category === 'suspicious'
                         ? 'rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700'
                         : 'rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700'
                   }
                 >
-                  {result.is_phishing ? 'Phishing' : result.confidence >= 0.4 ? 'Suspicious' : 'Legitimate'}
+                  {result.threat_category === 'dangerous'
+                    ? 'Dangerous'
+                    : result.threat_category === 'suspicious'
+                      ? 'Suspicious'
+                      : 'Safe'}
                 </span>
               </td>
-              <td className="px-4 py-4 text-slate-700">{result.confidence.toFixed(3)}</td>
-              <td className="px-4 py-4 text-slate-700">{result.target_bank_name ?? 'Unknown'}</td>
-              <td className="px-4 py-4 text-slate-700">{result.analysis_type}</td>
+              <td className="px-4 py-4 text-slate-700">{(result.risk_score / 100).toFixed(3)}</td>
+              <td className="px-4 py-4 text-slate-700">{result.target_brand ?? 'Unknown'}</td>
+              <td className="px-4 py-4 text-slate-700">{result.input_type}</td>
             </tr>
           ))}
         </tbody>

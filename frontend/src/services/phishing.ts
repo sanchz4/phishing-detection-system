@@ -35,6 +35,18 @@ export interface DetectionResult {
   errors: string[];
 }
 
+export interface HistoryRecord {
+  id: string;
+  input_value: string;
+  input_type: string;
+  risk_score: number;
+  threat_category: ThreatCategory;
+  confidence: number;
+  confidence_level: string;
+  scanned_at: string;
+  explanation: string;
+}
+
 export async function fetchConfig() {
   const response = await api.get<{
     banks: BankSummary[];
@@ -84,17 +96,7 @@ export async function analyzeInput(payload: {
 
 export async function fetchHistory(riskLevel: string) {
   const response = await api.get<{
-    items: Array<{
-      id: string;
-      input_value: string;
-      input_type: string;
-      risk_score: number;
-      threat_category: ThreatCategory;
-      confidence: number;
-      confidence_level: string;
-      scanned_at: string;
-      explanation: string;
-    }>;
+    items: HistoryRecord[];
     total: number;
   }>('/history', {
     params: riskLevel && riskLevel !== 'all' ? { risk_level: riskLevel } : {},
