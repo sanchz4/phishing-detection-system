@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createHashRouter } from 'react-router-dom';
 import { AppShell } from '../components/AppShell';
 import { AboutPage } from '../pages/AboutPage';
 import { ErrorBoundaryPage } from '../pages/ErrorBoundaryPage';
@@ -7,7 +7,7 @@ import { LandingPage } from '../pages/LandingPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import { ScanPage } from '../pages/ScanPage';
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: '/',
     element: <AppShell />,

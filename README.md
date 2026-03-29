@@ -27,6 +27,21 @@ config.json              Non-secret runtime configuration
 3. Copy `.env.example` to `.env` and add any API keys you want enabled, including `SAFE_BROWSING_API_KEY` when available.
 4. Install frontend and root tooling with `npm install` and `npm --prefix frontend install`.
 
+## Deployment
+
+### Frontend on GitHub Pages
+
+- The repo now includes `.github/workflows/deploy-frontend-pages.yml`, which builds the `frontend/` app on every push to `main` and deploys it to GitHub Pages.
+- The frontend uses hash-based routing plus relative asset paths, so it can be served from the repository Pages URL without custom rewrite rules.
+- Set the repository variable `VITE_API_BASE_URL` in GitHub before relying on the live site. This should point to your deployed backend base URL, for example `https://your-backend-host.example.com`.
+
+### Backend on Render
+
+- The repo now includes `render.yaml` for a FastAPI web service deployment on Render.
+- After creating a new Render Blueprint from this repository, set `APP_CORS_ORIGINS` to include your local frontend URL and your GitHub Pages URL.
+- Optional threat-intelligence integrations remain env-driven: `SAFE_BROWSING_API_KEY`, `ICANN_API_KEY`, `VT_API_KEY`, `SECURITYTRAILS_API_KEY`, and `URLSCAN_API_KEY`.
+- The SQLite history store will work on a single instance, but keep in mind that many hosted platforms use ephemeral disks unless persistent storage is added.
+
 ## Available Scripts
 
 - `npm run dev`: run backend and frontend together
@@ -62,6 +77,8 @@ Example request:
 - `src/cyber_engine.py`: cybersecurity analysis engine with heuristic, ML, HTML, TLS, and threat-feed checks
 - `src/history_store.py`: SQLite-backed scan history
 - `src/cli.py`: streamlined command-line entrypoint
+- `.github/workflows/deploy-frontend-pages.yml`: GitHub Pages build and deploy workflow
+- `render.yaml`: Render blueprint for the hosted FastAPI backend
 - `frontend/src/components`: reusable UI components
 - `frontend/src/pages`: route-level views and fallbacks
 - `frontend/src/hooks`: React Query and dashboard hooks

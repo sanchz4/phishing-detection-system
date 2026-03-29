@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: phishing-detection-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn src.api:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: APP_CORS_ORIGINS
+        sync: false
+      - key: SAFE_BROWSING_API_KEY
+        sync: false
+      - key: ICANN_API_KEY
+        sync: false
+      - key: VT_API_KEY
+        sync: false
+      - key: SECURITYTRAILS_API_KEY
+        sync: false
+      - key: URLSCAN_API_KEY
+        sync: false
