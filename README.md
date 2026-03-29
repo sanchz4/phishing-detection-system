@@ -32,6 +32,7 @@ config.json              Non-secret runtime configuration
 - `npm run dev`: run backend and frontend together
 - `npm run dev:backend`: start the FastAPI backend on port `8000`
 - `npm run dev:frontend`: start the Vite frontend on port `5173`
+- `npm run backend:cli -- --url https://example.com`: run the modern Python CLI directly
 - `npm run build`: build the frontend
 - `npm run lint`: run frontend ESLint
 
@@ -50,8 +51,18 @@ Example request:
 }
 ```
 
+## Folder Structure
+
+- `src/api.py`: FastAPI application and REST endpoints
+- `src/service.py`: orchestration layer between API/CLI and detector logic
+- `src/cli.py`: streamlined command-line entrypoint
+- `frontend/src/components`: reusable UI components
+- `frontend/src/pages`: route-level views and fallbacks
+- `frontend/src/hooks`: React Query and dashboard hooks
+- `frontend/src/services`: typed API client layer
+- `frontend/src/store`: shared app-level client/store setup
+
 ## Notes
 
 - `config.json` no longer stores live secrets. Use environment variables instead.
 - If TensorFlow is unavailable, the backend falls back to histogram-based image features so the API can still start.
-- The current workspace does not contain Git metadata, so commit and push operations require a real Git checkout or repo initialization with the correct remote.

@@ -6,6 +6,7 @@
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:backend": "python -m uvicorn src.api:app --reload --host 0.0.0.0 --port 8000",
     "dev:frontend": "npm --prefix frontend run dev",
+    "backend:cli": "python -m src.cli",
     "build": "npm --prefix frontend run build",
     "lint": "npm --prefix frontend run lint",
     "format": "prettier --write ."
