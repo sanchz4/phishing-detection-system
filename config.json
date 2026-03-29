@@ -1,0 +1,70 @@
+{
+    "known_banks": [
+        {
+            "name": "State Bank of India",
+            "short_name": "sbi",
+            "url": "https://www.onlinesbi.sbi",
+            "login_url": "https://retail.onlinesbi.sbi/retail/login.htm"
+        },
+        {
+            "name": "IDFC First Bank", 
+            "short_name": "idfc",
+            "url": "https://www.idfcfirstbank.com",
+            "login_url": "https://my.idfcfirstbank.com/login"
+        },
+        {
+            "name": "HDFC Bank",
+            "short_name": "hdfc",
+            "url": "https://www.hdfcbank.com",
+            "login_url": "https://netbanking.hdfcbank.com"
+        },
+        {
+            "name": "ICICI Bank",
+            "short_name": "icici", 
+            "url": "https://www.icicibank.com",
+            "login_url": "https://infinitynxt.icicibank.com/in/login-page"
+        },
+        {
+            "name": "Axis Bank",
+            "short_name": "axis",
+            "url": "https://www.axisbank.com", 
+            "login_url": "https://neo.axisbank.com/login/customer"
+        },
+        {
+            "name": "Canara Bank",
+            "short_name": "canara",
+            "url": "https://www.canarabank.com",
+            "login_url": "https://online.canarabank.in/"
+        }
+    ],
+    "crawling": {
+        "max_pages": 10,
+        "timeout": 30,
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "max_depth": 2,                    
+        "crawl_timeout": 60,               
+        "subdomain_discovery": true       
+    },
+    "detection": {
+        "phishing_threshold": 0.75,
+        "suspicious_threshold": 0.5, 
+        "domain_similarity_weight": 0.4,
+        "image_similarity_weight": 0.4,
+        "structural_similarity_weight": 0.2,
+        "html_similarity_weight": 0.3,     
+        "content_similarity_weight": 0.3
+    },
+    "icann": {
+        "api_key": "",
+        "enabled": false,
+        "rate_limit_delay": 1
+    },
+    "domain_discovery": {
+        "virustotal_key": "",
+        "securitytrails_key": "",
+        "urlscan_key": "",
+        "default_iterations": 1,
+        "risk_threshold": 30,
+        "rate_limit_delay": 0.5
+    }
+}

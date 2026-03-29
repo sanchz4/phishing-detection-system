@@ -1,0 +1,26 @@
+
+{
+    "monitoring": {
+        "platforms": ["twitter", "facebook", "instagram"],
+        "check_interval_hours": 6,
+        "max_posts_per_platform": 50,
+        "suspicion_threshold": 0.3
+    },
+    "keywords": {
+        "banking_keywords": [
+            "sbi login", "hdfc netbanking", "icici bank", "axis bank", "idfc bank",
+            "canara bank", "kotak bank", "pnb login", "bank of baroda", "union bank"
+        ],
+        "urgent_keywords": [
+            "urgent", "verify now", "security alert", "account suspended", "last warning"
+        ],
+        "financial_scam_keywords": [
+            "free money", "investment", "lottery", "cash reward", "double your money"
+        ]
+    },
+    "output": {
+        "excel_format": true,
+        "include_screenshots": false,
+        "auto_open_report": false
+    }
+}
